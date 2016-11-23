@@ -2,3 +2,28 @@
 
 # Defaults vars file for mongodb-mms-server role
 
+# General
+mongodb_mms_server_python_binary: "{{ _mongodb_mms_server_python_binary | default('/usr/bin/python2.7') }}"
+
+# Packages
+mongodb_mms_server_get_package_from_url: True
+mongodb_mms_server_package_checksum: None
+mongodb_mms_server_package_url: "{{ _mongodb_mms_server_package_url | default('') }}"
+mongodb_mms_server_package_name: "{{ mongodb_mms_server_package_url | basename }}"
+mongodb_mms_server_package_path: "{{ mongodb_mms_server_base_folders_paths.tmp }}/{{ mongodb_mms_server_package_name }}"
+mongodb_mms_server_version: '2.0.7.372-1'
+
+# Paths
+mongodb_mms_server_base_folders_paths:
+  config: "{{ _mongodb_mms_server_os_base_config_path }}/mongodb-mms"
+  data: "{{ _mongodb_mms_server_os_base_data_path }}/mongodb-mms"
+  log: "{{ _mongodb_mms_server_os_base_log_path }}/mongodb-mms"
+  logrotate: "{{ _mongodb_mms_server_os_base_logrotate_path }}"
+  upstart: "{{ _mongodb_mms_server_os_base_upstart_path | default('') }}"
+  run: "{{ _mongodb_mms_server_os_base_run_path }}/mongodb-mms"
+  systemd_services: "{{ _mongodb_mms_server_os_base_systemd_services_path | default('') }}"
+  tmp: "{{ _mongodb_mms_server_os_base_tmp_path }}"
+
+# Services management
+mongodb_mms_server_is_upstart_management: "{{ _mongodb_mms_server_is_upstart_management | default(False) }}"
+mongodb_mms_server_is_systemd_management: "{{ _mongodb_mms_server_is_systemd_management | default(False) }}"

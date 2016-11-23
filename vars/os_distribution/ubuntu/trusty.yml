@@ -1,0 +1,9 @@
+---
+
+# Specific Trusty vars
+
+_mongodb_mms_server_os_base_upstart_path: '/etc/init'
+_mongodb_mms_server_is_upstart_management: True
+
+# Used to choice proper download method
+_mongodb_mms_server_python_binary: '/usr/bin/python2.7'

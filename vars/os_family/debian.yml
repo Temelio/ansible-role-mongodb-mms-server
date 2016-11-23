@@ -1,0 +1,15 @@
+---
+
+# Debian OS family specific vars
+
+# Main user variables
+_mongodb_mms_server_user: 'mongodb-mms'
+_mongodb_mms_server_group: 'mongodb-mms'
+
+# Path variables
+_mongodb_mms_server_os_base_config_path: '/etc'
+_mongodb_mms_server_os_base_data_path: '/var/lib'
+_mongodb_mms_server_os_base_log_path: '/var/log'
+_mongodb_mms_server_os_base_logrotate_path: '/etc/logrotate.d'
+_mongodb_mms_server_os_base_run_path: '/var/run'
+_mongodb_mms_server_os_base_tmp_path: '/tmp'

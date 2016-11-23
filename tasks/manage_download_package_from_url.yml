@@ -1,0 +1,58 @@
+---
+
+# Tasks about download package from an URL
+
+- name: 'INSTALL | GET PACKAGE FROM URL | Get python version'
+  command: "{{ mongodb_mms_server_python_binary }} --version"
+  register: 'mongodb_mms_server_check_python_version'
+  changed_when: False
+
+
+# When condition explain:
+# Python return its version on stderr on Trusty, but on stdout on Xenial
+- name: 'INSTALL | GET PACKAGE FROM URL | Get package file from MongoDB website via get_url module'
+  get_url:
+    url: "{{ mongodb_mms_server_package_url }}"
+    dest: "{{ mongodb_mms_server_package_path }}"
+    checksum: "{{ mongodb_mms_server_package_checksum.type }}:{{ mongodb_mms_server_package_checksum.value }}"
+  register: 'mongodb_mms_server_check_install_with_module'
+  when: "{{
+    (
+      (mongodb_mms_server_check_python_version.stderr != '')
+      and (mongodb_mms_server_check_python_version.stderr.replace('Python ', '') | version_compare('2.7.9', '>='))
+    )
+    or (
+      (mongodb_mms_server_check_python_version.stdout != '')
+      and (mongodb_mms_server_check_python_version.stdout.replace('Python ', '') | version_compare('2.7.9', '>='))
+    )
+  }}"
+
+
+- name: 'INSTALL | GET PACKAGE FROM URL | Check if file already exists'
+  stat:
+    path: "{{ mongodb_mms_server_package_path }}"
+    get_checksum: True
+    checksum_algorithm: "{{ mongodb_mms_server_package_checksum.type }}"
+  register: 'mongodb_mms_server_check_package_file'
+  when: "{{ mongodb_mms_server_check_install_with_module | skipped }}"
+
+
+# On old Python version, we use curl command, due to a bug with SNI
+# See https://github.com/ansible/ansible-modules-core/issues/1716
+- name: 'INSTALL | Get package file from MongoDB website via curl command'
+  command: "curl -o {{ mongodb_mms_server_package_path }} {{ mongodb_mms_server_package_url }}"
+  register: 'mongodb_mms_server_check_install_with_curl'
+  when:
+    - "{{ mongodb_mms_server_check_install_with_module | skipped }}"
+    - "{{ (not mongodb_mms_server_check_package_file.stat.exists)
+          or (mongodb_mms_server_check_package_file.stat.checksum != mongodb_mms_server_package_checksum.value) }}"
+
+
+- name: 'INSTALL | GET PACKAGE FROM URL | Check file checksum after curl download'
+  stat:
+    path: "{{ mongodb_mms_server_package_path }}"
+    get_checksum: True
+    checksum_algorithm: "{{ mongodb_mms_server_package_checksum.type }}"
+  register: 'mongodb_mms_server_check_package_file'
+  failed_when: "{{ mongodb_mms_server_check_package_file.stat.checksum != mongodb_mms_server_package_checksum.value }}"
+  when: "{{ mongodb_mms_server_check_install_with_curl | changed }}"
