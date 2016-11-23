@@ -2,3 +2,7 @@
 
 # Debian family installation tasks
 
+- name: 'INSTALL | APT | Install package'
+  apt:
+    deb: "{{ mongodb_mms_server_package_path }}"
+    state: "{{ mongodb_mms_server_package_state }}"

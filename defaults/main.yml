@@ -4,6 +4,7 @@
 
 # General
 mongodb_mms_server_python_binary: "{{ _mongodb_mms_server_python_binary | default('/usr/bin/python2.7') }}"
+mongodb_mms_server_version: '2.0.7.372-1'
 
 # Packages
 mongodb_mms_server_get_package_from_url: True
@@ -11,7 +12,7 @@ mongodb_mms_server_package_checksum: None
 mongodb_mms_server_package_url: "{{ _mongodb_mms_server_package_url | default('') }}"
 mongodb_mms_server_package_name: "{{ mongodb_mms_server_package_url | basename }}"
 mongodb_mms_server_package_path: "{{ mongodb_mms_server_base_folders_paths.tmp }}/{{ mongodb_mms_server_package_name }}"
-mongodb_mms_server_version: '2.0.7.372-1'
+mongodb_mms_server_package_state: 'present'
 
 # Paths
 mongodb_mms_server_base_folders_paths:

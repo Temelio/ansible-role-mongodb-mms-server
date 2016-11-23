@@ -21,3 +21,15 @@ def test_temporary_package_file(SystemInfo, File):
     package = File(filename)
     assert package.exists
     assert package.is_file
+
+
+def test_package_install(SystemInfo, Package):
+    """
+    Test if package is installed
+    """
+
+    if SystemInfo.distribution == 'ubuntu':
+        package_name = 'mongodb-mms'
+
+    package = Package(package_name)
+    assert package.is_installed
