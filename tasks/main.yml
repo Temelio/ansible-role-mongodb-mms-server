@@ -6,6 +6,11 @@
   include: 'manage_variables.yml'
 
 
+- name: 'INSTALL PREREQUISITES | Manage prerequisites installation tasks for your OS family'
+  become: True
+  include: "install_prerequisites_{{ ansible_os_family | lower }}.yml"
+
+
 - name: 'INSTALL | Manage package download from MongoDB download center'
   include: 'manage_download_package_from_url.yml'
   when: "{{ mongodb_mms_server_get_package_from_url }}"

@@ -2,6 +2,9 @@
 
 # Specific Trusty vars
 
+_mongodb_mms_server_package_prerequisites:
+  - name: 'curl'
+
 _mongodb_mms_server_os_base_upstart_path: '/etc/init'
 _mongodb_mms_server_is_upstart_management: True
 

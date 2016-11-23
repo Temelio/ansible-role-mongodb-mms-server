@@ -12,6 +12,7 @@ mongodb_mms_server_package_checksum: None
 mongodb_mms_server_package_url: "{{ _mongodb_mms_server_package_url | default('') }}"
 mongodb_mms_server_package_name: "{{ mongodb_mms_server_package_url | basename }}"
 mongodb_mms_server_package_path: "{{ mongodb_mms_server_base_folders_paths.tmp }}/{{ mongodb_mms_server_package_name }}"
+mongodb_mms_server_package_prerequisites: "{{ _mongodb_mms_server_package_prerequisites | default([]) }}"
 mongodb_mms_server_package_state: 'present'
 
 # Paths
