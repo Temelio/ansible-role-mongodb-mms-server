@@ -75,3 +75,39 @@ def test_configuration_files(SystemInfo, File):
     assert config_file.contains('mms.mail.transport=smtp')
     assert config_file.contains('mms.mail.hostname=localhost')
     assert config_file.contains('mms.mail.port=25')
+
+
+def test_service(SystemInfo, Service):
+    """
+    Test service state
+    """
+
+    service_name = ''
+
+    if SystemInfo.distribution == 'ubuntu':
+        service_name = 'mongodb-mms'
+
+    service = Service(service_name)
+    assert service.is_enabled
+    assert service.is_running
+
+
+def test_process(SystemInfo, Process):
+    """
+    Test process is running
+    """
+
+    user_name = ''
+
+    if SystemInfo.distribution == 'ubuntu':
+        user_name = 'mongodb+'
+
+    assert len(Process.filter(user=user_name)) > 0
+
+
+def test_listening_port(Socket):
+    """
+    Test process is running
+    """
+
+    assert Socket('tcp://:::8080').is_listening

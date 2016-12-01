@@ -24,3 +24,11 @@
 - name: 'CONFIG | Manage configuration tasks'
   become: True
   include: 'configure.yml'
+
+
+- name: 'SERVICE | Manage service state'
+  become: True
+  service:
+    name: "{{ mongodb_mms_server_service_name }}"
+    state: "{{ mongodb_mms_server_service_state }}"
+    enabled: "{{ mongodb_mms_server_service_enabled }}"

@@ -2,3 +2,11 @@
 
 # Handlers main file for mongodb-mms-server role
 
+- name: 'Restart MongoDB OPS Manager'
+  become: True
+  service:
+    name: "{{ mongodb_mms_server_service_name }}"
+    state: 'restarted'
+  when:
+    - "{{ _mongodb_mms_server_service_state == 'started' }}"
+    - "{{ _mongodb_mms_server_service_enabled }}"

@@ -58,3 +58,8 @@ _mongodb_mms_server_main_config_items:
     value: ''
   - option: 'mms.kerberos.debug'
     value: ''
+
+# Service management
+_mongodb_mms_server_service_name: 'mongodb-mms'
+_mongodb_mms_server_service_state: 'started'
+_mongodb_mms_server_service_enabled: True
