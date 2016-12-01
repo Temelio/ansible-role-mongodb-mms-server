@@ -1,0 +1,24 @@
+---
+
+# MongoDB MMS server configuration
+
+- name: 'CONFIG | INIT | Manage init script configuration'
+  template:
+    src: 'mms.conf.j2'
+    dest: "{{ mongodb_mms_server_init_config_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0664'
+    backup: "{{ mongodb_mms_server_backup_config }}"
+  when: "{{ mongodb_mms_server_manage_config_files }}"
+
+
+- name: 'CONFIG | MAIN | Manage main configuration'
+  template:
+    src: 'conf-mms.properties.j2'
+    dest: "{{ mongodb_mms_server_main_config_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0664'
+    backup: "{{ mongodb_mms_server_backup_config }}"
+  when: "{{ mongodb_mms_server_manage_config_files }}"

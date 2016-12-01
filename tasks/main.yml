@@ -19,3 +19,8 @@
 - name: 'INSTALL | Manage installation tasks for your OS family'
   become: True
   include: "install_{{ ansible_os_family | lower }}.yml"
+
+
+- name: 'CONFIG | Manage configuration tasks'
+  become: True
+  include: 'configure.yml'

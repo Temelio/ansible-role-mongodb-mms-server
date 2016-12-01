@@ -33,3 +33,24 @@ def test_package_install(SystemInfo, Package):
 
     package = Package(package_name)
     assert package.is_installed
+
+
+def test_configuration_files(SystemInfo, File):
+    """
+    Test if configuration files exists
+    """
+
+    config_files = []
+
+    if SystemInfo.distribution == 'ubuntu':
+        config_files = [
+            '/opt/mongodb/mms/conf/mms.conf',
+            '/opt/mongodb/mms/conf/conf-mms.properties',
+        ]
+
+    for config_file in config_files:
+        assert File(config_file).exists
+        assert File(config_file).is_file
+        assert File(config_file).user == 'root'
+        assert File(config_file).group == 'root'
+        assert File(config_file).mode == 0o664
