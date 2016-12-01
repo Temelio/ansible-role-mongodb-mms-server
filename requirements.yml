@@ -1,0 +1,6 @@
+---
+
+# Requirements used to test the role
+
+- src: 'infOpen.mongodb'
+  version: '0.1.0'

@@ -5,6 +5,7 @@
 - hosts: 'all'
   remote_user: "{{ lookup('env', 'VAGRANT') == 'true' | ternary('vagrant', 'root') }}"
   roles:
+    - role: 'infOpen.mongodb'
     - role: "{{ role_name }}"
   vars:
     role_name: "{{ playbook_dir | basename }}"

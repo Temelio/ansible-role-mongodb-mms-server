@@ -52,7 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vm_config.vm.provision 'ansible' do |ansible|
         ansible.playbook = 'testing_deployment.yml'
         # Enable requirement if role has dependencies
-        # ansible.galaxy_role_file = './requirements.yml'
+        ansible.galaxy_role_file = './requirements.yml'
         ansible.extra_vars = {
           ansible_python_interpreter: '/usr/bin/env python2.7'
         }
