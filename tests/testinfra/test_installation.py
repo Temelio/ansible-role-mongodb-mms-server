@@ -16,7 +16,7 @@ def test_temporary_package_file(SystemInfo, File):
     """
 
     if SystemInfo.distribution == 'ubuntu':
-        filename = '/tmp/mongodb-mms_2.0.7.372-1_x86_64.deb'
+        filename = '/tmp/mongodb-mms_3.4.0.383-1_x86_64.deb'
 
     package = File(filename)
     assert package.exists
@@ -54,3 +54,24 @@ def test_configuration_files(SystemInfo, File):
         assert File(config_file).user == 'root'
         assert File(config_file).group == 'root'
         assert File(config_file).mode == 0o664
+
+
+def test_configuration_files(SystemInfo, File):
+    """
+    Test if configuration settings added
+    """
+
+    config_file_path = ''
+
+    if SystemInfo.distribution == 'ubuntu':
+        config_file_path = '/opt/mongodb/mms/conf/conf-mms.properties'
+
+    config_file = File(config_file_path)
+    assert config_file.contains('mms.centralUrl=http://localhost:8080')
+    assert config_file.contains('mms.fromEmailAddr=foo@bar.org')
+    assert config_file.contains('mms.replyToEmailAddr=foo@bar.org')
+    assert config_file.contains('mms.adminEmailAddr=foo@bar.org')
+    assert config_file.contains('mms.emailDaoClass=com.xgen.svc.core.dao.email.JavaEmailDao')
+    assert config_file.contains('mms.mail.transport=smtp')
+    assert config_file.contains('mms.mail.hostname=localhost')
+    assert config_file.contains('mms.mail.port=25')
