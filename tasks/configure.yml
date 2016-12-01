@@ -22,3 +22,11 @@
     mode: '0664'
     backup: "{{ mongodb_mms_server_backup_config }}"
   when: "{{ mongodb_mms_server_manage_config_files }}"
+
+
+- name: 'CONFIG | SECRET KEY | Manage secret key deployment'
+  copy:
+    content: "{{ mongodb_mms_server_key }}"
+    dest: "{{ mongodb_mms_server_key_path }}"
+    mode: '0400'
+  when: "{{ mongodb_mms_server_key != '' }}"

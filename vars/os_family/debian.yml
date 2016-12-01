@@ -9,6 +9,7 @@ _mongodb_mms_server_group: 'mongodb-mms'
 # Path variables
 _mongodb_mms_server_os_base_config_path: '/opt/mongodb/mms/conf'
 _mongodb_mms_server_os_base_data_path: '/var/lib'
+_mongodb_mms_server_os_base_etc_path: '/etc'
 _mongodb_mms_server_os_base_log_path: '/var/log'
 _mongodb_mms_server_os_base_logrotate_path: '/etc/logrotate.d'
 _mongodb_mms_server_os_base_run_path: '/var/run'

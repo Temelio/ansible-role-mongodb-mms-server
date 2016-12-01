@@ -20,6 +20,7 @@ mongodb_mms_server_package_state: 'present'
 mongodb_mms_server_base_folders_paths:
   config: "{{ _mongodb_mms_server_os_base_config_path }}"
   data: "{{ _mongodb_mms_server_os_base_data_path }}/mongodb-mms"
+  etc: "{{ _mongodb_mms_server_os_base_etc_path }}/mongodb-mms"
   log: "{{ _mongodb_mms_server_os_base_log_path }}/mongodb-mms"
   logrotate: "{{ _mongodb_mms_server_os_base_logrotate_path }}"
   upstart: "{{ _mongodb_mms_server_os_base_upstart_path | default('') }}"
@@ -32,8 +33,10 @@ mongodb_mms_server_is_upstart_management: "{{ _mongodb_mms_server_is_upstart_man
 mongodb_mms_server_is_systemd_management: "{{ _mongodb_mms_server_is_systemd_management | default(False) }}"
 
 # Configuration management
+mongodb_mms_server_key_path: "{{ mongodb_mms_server_base_folders_paths.etc }}/gen.key"
 mongodb_mms_server_manage_config_files: True
 mongodb_mms_server_init_config_path: "{{ mongodb_mms_server_base_folders_paths.config }}/mms.conf"
 mongodb_mms_server_main_config_path: "{{ mongodb_mms_server_base_folders_paths.config }}/conf-mms.properties"
 mongodb_mms_server_init_config_items: "{{ _mongodb_mms_server_init_config_items }}"
 mongodb_mms_server_main_config_items: "{{ _mongodb_mms_server_main_config_items }}"
+mongodb_mms_server_key: ''
