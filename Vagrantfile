@@ -6,10 +6,12 @@ VAGRANTFILE_API_VERSION = '2'
 
 VMS = {
   :mongodb_mms_server_trusty => {
-    :box => 'ubuntu/trusty64'
+    :box => 'ubuntu/trusty64',
+    :ext_port => 8080
   },
   :mongodb_mms_server_xenial => {
-    :box => 'ubuntu/xenial64'
+    :box => 'ubuntu/xenial64',
+    :ext_port => 8081
   }
 }
 
@@ -21,11 +23,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # Set proper box
       vm_config.vm.box = options[:box]
+      vm_config.vm.network "forwarded_port", guest: 8080, host: options[:ext_port]
 
 
       # Virtualbox vm name management
       vm_config.vm.provider "virtualbox" do |vm|
           vm.name = name.to_s
+          vm.memory = 15360
       end
 
 
