@@ -4,7 +4,7 @@
 
 - name: 'CONFIG | INIT | Manage init script configuration'
   template:
-    src: 'mms.conf.j2'
+    src: "{{ role_path }}/templates/mms.conf.j2"
     dest: "{{ mongodb_mms_server_init_config_path }}"
     owner: 'root'
     group: 'root'
@@ -16,7 +16,7 @@
 
 - name: 'CONFIG | MAIN | Manage main configuration'
   template:
-    src: 'conf-mms.properties.j2'
+    src: "{{ role_path }}/templates/conf-mms.properties.j2"
     dest: "{{ mongodb_mms_server_main_config_path }}"
     owner: 'root'
     group: 'root'
