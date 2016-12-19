@@ -33,3 +33,13 @@
     mode: '0400'
   notify: 'Restart MongoDB OPS Manager'
   when: "{{ mongodb_mms_server_key != '' }}"
+
+
+- name: 'CONFIG | ACL | Set ACL to set read access on private key used with HTTPS'
+  acl:
+    name: "{{ mongodb_mms_server_private_key_file_path }}"
+    entity: "{{ mongodb_mms_server_user }}"
+    etype: 'user'
+    permissions: 'r'
+    state: 'present'
+  when: "{{ mongodb_mms_server_private_key_file_path != '' }}"
