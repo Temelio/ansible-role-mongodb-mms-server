@@ -1,0 +1,9 @@
+---
+
+# Specific Xenial vars
+
+_mongodb_mms_server_os_base_systemd_services_path: '/lib/systemd/system'
+_mongodb_mms_server_is_systemd_management: True
+
+# Used to choice proper download method
+_mongodb_mms_server_python_binary: '/usr/bin/python3'

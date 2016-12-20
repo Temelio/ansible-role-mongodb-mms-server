@@ -1,0 +1,29 @@
+---
+
+mongodb_mms_server_package_checksum:
+  type: 'sha1'
+  value: 'bb9f89c09c45a8ed77a2fd52b2b6aef76fa7140a'
+
+
+# Additional configuration for main config
+_mongodb_mms_server_main_config_add_items:
+  - option: 'mms.centralUrl'
+    value: 'http://localhost:8080'
+  - option: 'mms.fromEmailAddr'
+    value: 'foo@bar.org'
+  - option: 'mms.replyToEmailAddr'
+    value: 'foo@bar.org'
+  - option: 'mms.adminEmailAddr'
+    value: 'foo@bar.org'
+  - option: 'mms.emailDaoClass'
+    value: 'com.xgen.svc.core.dao.email.JavaEmailDao'
+  - option: 'mms.mail.transport'
+    value: 'smtp'
+  - option: 'mms.mail.hostname'
+    value: 'localhost'
+  - option: 'mms.mail.port'
+    value: 25
+
+mongodb_mms_server_main_config_items: "{{
+  _mongodb_mms_server_main_config_items
+  + _mongodb_mms_server_main_config_add_items }}"

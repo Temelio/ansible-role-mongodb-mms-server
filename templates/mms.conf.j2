@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% for item in mongodb_mms_server_init_config_items %}
+{{ item.option }}={{ item.value }}
+{% endfor %}
