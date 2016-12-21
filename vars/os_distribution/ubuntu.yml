@@ -1,0 +1,5 @@
+---
+
+# Specific vars common to all Ubuntu releases
+
+_mongodb_mms_server_package_url: "https://downloads.mongodb.com/on-prem-mms/deb/mongodb-mms_{{ mongodb_mms_server_version }}_x86_64.deb"

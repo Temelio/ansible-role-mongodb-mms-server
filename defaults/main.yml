@@ -1,0 +1,52 @@
+---
+
+# Defaults vars file for mongodb-mms-server role
+
+# General
+mongodb_mms_server_python_binary: "{{ _mongodb_mms_server_python_binary | default('/usr/bin/python2.7') }}"
+mongodb_mms_server_version: '3.4.0.383-1'
+mongodb_mms_server_backup_config: True
+
+# User
+mongodb_mms_server_user: "{{ _mongodb_mms_server_user }}"
+mongodb_mms_server_group: "{{ _mongodb_mms_server_group }}"
+
+# Packages
+mongodb_mms_server_get_package_from_url: True
+mongodb_mms_server_package_checksum: None
+mongodb_mms_server_package_url: "{{ _mongodb_mms_server_package_url | default('') }}"
+mongodb_mms_server_package_name: "{{ mongodb_mms_server_package_url | basename }}"
+mongodb_mms_server_package_path: "{{ mongodb_mms_server_base_folders_paths.tmp }}/{{ mongodb_mms_server_package_name }}"
+mongodb_mms_server_package_prerequisites: "{{ _mongodb_mms_server_package_prerequisites | default([]) }}"
+mongodb_mms_server_package_state: 'present'
+
+# Paths
+mongodb_mms_server_base_folders_paths:
+  config: "{{ _mongodb_mms_server_os_base_config_path }}"
+  data: "{{ _mongodb_mms_server_os_base_data_path }}/mongodb-mms"
+  etc: "{{ _mongodb_mms_server_os_base_etc_path }}/mongodb-mms"
+  log: "{{ _mongodb_mms_server_os_base_log_path }}/mongodb-mms"
+  logrotate: "{{ _mongodb_mms_server_os_base_logrotate_path }}"
+  upstart: "{{ _mongodb_mms_server_os_base_upstart_path | default('') }}"
+  run: "{{ _mongodb_mms_server_os_base_run_path }}/mongodb-mms"
+  systemd_services: "{{ _mongodb_mms_server_os_base_systemd_services_path | default('') }}"
+  tmp: "{{ _mongodb_mms_server_os_base_tmp_path }}"
+
+# Services management
+mongodb_mms_server_is_upstart_management: "{{ _mongodb_mms_server_is_upstart_management | default(False) }}"
+mongodb_mms_server_is_systemd_management: "{{ _mongodb_mms_server_is_systemd_management | default(False) }}"
+
+# Configuration management
+mongodb_mms_server_key_path: "{{ mongodb_mms_server_base_folders_paths.etc }}/gen.key"
+mongodb_mms_server_manage_config_files: True
+mongodb_mms_server_init_config_path: "{{ mongodb_mms_server_base_folders_paths.config }}/mms.conf"
+mongodb_mms_server_main_config_path: "{{ mongodb_mms_server_base_folders_paths.config }}/conf-mms.properties"
+mongodb_mms_server_init_config_items: "{{ _mongodb_mms_server_init_config_items }}"
+mongodb_mms_server_main_config_items: "{{ _mongodb_mms_server_main_config_items }}"
+mongodb_mms_server_key: ''
+mongodb_mms_server_private_key_file_path: ''
+
+# Service management
+mongodb_mms_server_service_name: "{{ _mongodb_mms_server_service_name | default('mongodb-mms') }}"
+mongodb_mms_server_service_state: "{{ _mongodb_mms_server_service_state | default('started') }}"
+mongodb_mms_server_service_enabled: "{{ _mongodb_mms_server_service_enabled | default(True) }}"

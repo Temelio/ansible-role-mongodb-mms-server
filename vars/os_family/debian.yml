@@ -1,0 +1,65 @@
+---
+
+# Debian OS family specific vars
+
+# Main user variables
+_mongodb_mms_server_user: 'mongodb-mms'
+_mongodb_mms_server_group: 'mongodb-mms'
+
+# Path variables
+_mongodb_mms_server_os_base_config_path: '/opt/mongodb/mms/conf'
+_mongodb_mms_server_os_base_data_path: '/var/lib'
+_mongodb_mms_server_os_base_etc_path: '/etc'
+_mongodb_mms_server_os_base_log_path: '/var/log'
+_mongodb_mms_server_os_base_logrotate_path: '/etc/logrotate.d'
+_mongodb_mms_server_os_base_run_path: '/var/run'
+_mongodb_mms_server_os_base_tmp_path: '/tmp'
+
+# mms.conf file content
+_mongodb_mms_server_init_config_items:
+  - option: 'LOG_PATH'
+    value: '"${APP_DIR}/logs"'
+  - option: 'MMS_USER'
+    value: 'mongodb-mms'
+  - option: 'JAVA_HOME'
+    value: '"${APP_DIR}/jdk"'
+  - option: 'ENC_KEY_PATH'
+    value: '/etc/mongodb-mms/gen.key'
+  - option: 'BASE_PORT'
+    value: 8080
+  - option: 'BASE_SSL_PORT'
+    value: 8443
+  - option: 'JAVA_MMS_UI_OPTS'
+    value: '"${JAVA_MMS_UI_OPTS} -d64 -Xss228k -Xmx4352m -Xms4352m -XX:NewSize=600m -Xmn1500m -XX:ReservedCodeCacheSize=128m -XX:-OmitStackTraceInFastThrow"'
+  - option: 'JAVA_MMS_UI_OPTS'
+    value: '"${JAVA_MMS_UI_OPTS} -Dxgen.webServerGzipEnabled=true"'
+  - option: 'JAVA_DAEMON_OPTS'
+    value: '"${JAVA_DAEMON_OPTS} -DMONGO.BIN.PREFIX="'
+
+# conf-mms.properties file content
+_mongodb_mms_server_main_config_items:
+  - option: 'mongo.mongoUri'
+    value: 'mongodb://127.0.0.1:27017/?maxPoolSize=150'
+  - option: 'mongo.ssl'
+    value: false
+  - option: 'mongodb.ssl.CAFile'
+    value: ''
+  - option: 'mongodb.ssl.PEMKeyFile'
+    value: ''
+  - option: 'mongodb.ssl.PEMKeyFilePassword'
+    value: ''
+  - option: 'jvm.java.security.krb5.kdc'
+    value: ''
+  - option: 'jvm.java.security.krb5.realm'
+    value: ''
+  - option: 'mms.kerberos.principal'
+    value: ''
+  - option: 'mms.kerberos.keyTab'
+    value: ''
+  - option: 'mms.kerberos.debug'
+    value: ''
+
+# Service management
+_mongodb_mms_server_service_name: 'mongodb-mms'
+_mongodb_mms_server_service_state: 'started'
+_mongodb_mms_server_service_enabled: True

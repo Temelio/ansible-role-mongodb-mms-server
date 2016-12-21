@@ -1,0 +1,34 @@
+---
+
+# Main tasks file for mongodb-mms-server role
+
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+
+
+- name: 'INSTALL PREREQUISITES | Manage prerequisites installation tasks for your OS family'
+  become: True
+  include: "{{ role_path }}/tasks/install_prerequisites_{{ ansible_os_family | lower }}.yml"
+
+
+- name: 'INSTALL | Manage package download from MongoDB download center'
+  include: "{{ role_path }}/tasks/manage_download_package_from_url.yml"
+  when: "{{ mongodb_mms_server_get_package_from_url }}"
+
+
+- name: 'INSTALL | Manage installation tasks for your OS family'
+  become: True
+  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
+
+
+- name: 'CONFIG | Manage configuration tasks'
+  become: True
+  include: "{{ role_path }}/tasks/configure.yml"
+
+
+- name: 'SERVICE | Manage service state'
+  become: True
+  service:
+    name: "{{ mongodb_mms_server_service_name }}"
+    state: "{{ mongodb_mms_server_service_state }}"
+    enabled: "{{ mongodb_mms_server_service_enabled }}"

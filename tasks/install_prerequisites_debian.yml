@@ -1,0 +1,9 @@
+---
+
+# Debian family prerequisites installation tasks
+
+- name: 'INSTALL PREREQUISITES | APT | Install packages'
+  apt:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ mongodb_mms_server_package_prerequisites }}"

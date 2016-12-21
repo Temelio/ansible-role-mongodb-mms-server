@@ -1,0 +1,45 @@
+---
+
+# MongoDB MMS server configuration
+
+- name: 'CONFIG | INIT | Manage init script configuration'
+  template:
+    src: "{{ role_path }}/templates/mms.conf.j2"
+    dest: "{{ mongodb_mms_server_init_config_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0664'
+    backup: "{{ mongodb_mms_server_backup_config }}"
+  notify: 'Restart MongoDB OPS Manager'
+  when: "{{ mongodb_mms_server_manage_config_files }}"
+
+
+- name: 'CONFIG | MAIN | Manage main configuration'
+  template:
+    src: "{{ role_path }}/templates/conf-mms.properties.j2"
+    dest: "{{ mongodb_mms_server_main_config_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0664'
+    backup: "{{ mongodb_mms_server_backup_config }}"
+  notify: 'Restart MongoDB OPS Manager'
+  when: "{{ mongodb_mms_server_manage_config_files }}"
+
+
+- name: 'CONFIG | SECRET KEY | Manage secret key deployment'
+  copy:
+    content: "{{ mongodb_mms_server_key }}"
+    dest: "{{ mongodb_mms_server_key_path }}"
+    mode: '0400'
+  notify: 'Restart MongoDB OPS Manager'
+  when: "{{ mongodb_mms_server_key != '' }}"
+
+
+- name: 'CONFIG | ACL | Set ACL to set read access on private key used with HTTPS'
+  acl:
+    name: "{{ mongodb_mms_server_private_key_file_path }}"
+    entity: "{{ mongodb_mms_server_user }}"
+    etype: 'user'
+    permissions: 'r'
+    state: 'present'
+  when: "{{ mongodb_mms_server_private_key_file_path != '' }}"

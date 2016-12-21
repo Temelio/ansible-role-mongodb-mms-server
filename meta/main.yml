@@ -1,0 +1,18 @@
+---
+
+galaxy_info:
+  author: 'Alexandre Chaussier'
+  description: 'Ansible role to install and configure MongoDB MMS Server (OPS Manager)'
+  company: 'Temelio (http://temelio.com)'
+  license: 'MIT'
+  min_ansible_version: '2.0'
+  github_branch: 'master'
+  platforms:
+    - name: 'Ubuntu'
+      versions:
+        - 'xenial'
+  galaxy_tags:
+    - 'system'
+    - 'database'
+    - 'nosql'
+dependencies: []
