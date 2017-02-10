@@ -37,13 +37,13 @@ mongodb_mms_server_is_upstart_management: "{{ _mongodb_mms_server_is_upstart_man
 mongodb_mms_server_is_systemd_management: "{{ _mongodb_mms_server_is_systemd_management | default(False) }}"
 
 # Configuration management
+mongodb_mms_server_key_file: ''
 mongodb_mms_server_key_path: "{{ mongodb_mms_server_base_folders_paths.etc }}/gen.key"
 mongodb_mms_server_manage_config_files: True
 mongodb_mms_server_init_config_path: "{{ mongodb_mms_server_base_folders_paths.config }}/mms.conf"
 mongodb_mms_server_main_config_path: "{{ mongodb_mms_server_base_folders_paths.config }}/conf-mms.properties"
 mongodb_mms_server_init_config_items: "{{ _mongodb_mms_server_init_config_items }}"
 mongodb_mms_server_main_config_items: "{{ _mongodb_mms_server_main_config_items }}"
-mongodb_mms_server_key: ''
 mongodb_mms_server_private_key_file_path: ''
 
 # Service management
