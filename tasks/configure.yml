@@ -28,11 +28,13 @@
 
 - name: 'CONFIG | SECRET KEY | Manage secret key deployment'
   copy:
-    content: "{{ mongodb_mms_server_key }}"
+    src: "{{ mongodb_mms_server_key_file }}"
     dest: "{{ mongodb_mms_server_key_path }}"
+    owner: "{{ mongodb_mms_server_user }}"
+    group: "{{ mongodb_mms_server_group }}"
     mode: '0400'
   notify: 'Restart MongoDB OPS Manager'
-  when: "{{ mongodb_mms_server_key != '' }}"
+  when: "{{ mongodb_mms_server_key_file != '' }}"
 
 
 - name: 'CONFIG | ACL | Set ACL to set read access on private key used with HTTPS'
